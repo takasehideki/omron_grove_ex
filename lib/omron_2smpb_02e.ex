@@ -1,4 +1,4 @@
-defmodule GrovePi.RGBLCD.Omron2smpb02e do
+defmodule GrovePi.Omron2smpb02e do
   @moduledoc """
   OMRON 2smpb_02e
 
