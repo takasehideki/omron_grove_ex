@@ -100,8 +100,8 @@ defmodule GrovePi.Omron2smpb02e do
         data = bus.read_i2c_block_data(self.I2C_ADDR, addr, 1)
         return data[0]
   """
-  def readByte(addr) do
-    data = I2C.read(addr, 1)
+  def readByte(pid, addr) do
+    data = I2C.read(pid, addr)
   end
 
 
@@ -124,9 +124,9 @@ defmodule GrovePi.Omron2smpb02e do
         return Dt
   """
   def readRawTemp(pid) do
-    temp_txd2 = readByte(@reg_temp_txd2)
-    temp_txd1 = readByte(@reg_temp_txd1)
-    temp_txd0 = readByte(@reg_temp_txd0)
+    temp_txd2 = readByte(pid, @reg_temp_txd2)
+    temp_txd1 = readByte(pid, @reg_temp_txd1)
+    temp_txd0 = readByte(pid, @reg_temp_txd0)
     """
     rawTemp = ElixirALE.I2C.read(pid, 75)
     """
