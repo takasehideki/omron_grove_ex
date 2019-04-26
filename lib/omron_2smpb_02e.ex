@@ -76,7 +76,8 @@ defmodule GrovePi.Omron2smpb02e do
         self.setAverage(self.AVG_1,self.AVG_1)
   """
   def initialize() do
-    {:ok, pid} = I2C.start_link("i2c-1", @i2c_addr)
+    #{:ok, pid} = I2C.start_link("i2c-1", @i2c_addr)
+    {:ok, pid} = ElixirALE.I2C.start_link("i2c-1", @i2c_addr)
 
     writeByteData(0xf5, 0x00)
     Process.sleep(500)
@@ -124,12 +125,13 @@ defmodule GrovePi.Omron2smpb02e do
         return Dt
   """
   def readRawTemp(pid) do
+    """
     temp_txd2 = readByte(pid, @reg_temp_txd2)
     temp_txd1 = readByte(pid, @reg_temp_txd1)
     temp_txd0 = readByte(pid, @reg_temp_txd0)
     """
-    rawTemp = ElixirALE.I2C.read(pid, 75)
-    """
+    rawData = ElixirALE.I2C.read(pid, 75)
+    <<_::8*72, temp_txd0::integer, temp_txd1::integer, temp_txd0::integer = rawData
     dt = bor(temp_txd2<<<16,(bor(temp_txd1<<<8,temp_txd0))) - pow(2,23)
 
     Logger.info temp_txd2 <> " " <> temp_txd1 <> "" <> temp_txd0 <> "" <> dt
