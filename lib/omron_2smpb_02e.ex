@@ -125,7 +125,6 @@ defmodule GrovePi.Omron2smpb02e do
         return Dt
   """
   def readRawTemp(pid) do
-    IO.puts pid
     """
     temp_txd2 = readByte(pid, @reg_temp_txd2)
     temp_txd1 = readByte(pid, @reg_temp_txd1)
@@ -133,6 +132,8 @@ defmodule GrovePi.Omron2smpb02e do
     """
     rawData = ElixirALE.I2C.read(pid, 75)
     <<_::8*72, temp_txd0::integer, temp_txd1::integer, temp_txd2::integer>> = rawData
+    Logger.info temp_txd2 <> " " <> temp_txd1 <> "" <> temp_txd0 
+
     dt = bor(temp_txd2<<<16,(bor(temp_txd1<<<8,temp_txd0))) - pow(2,23)
 
     Logger.info temp_txd2 <> " " <> temp_txd1 <> "" <> temp_txd0 <> "" <> dt
