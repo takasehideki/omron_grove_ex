@@ -136,6 +136,9 @@ defmodule GrovePi.Omron2smpb02e do
 
     dt = bor(temp_txd2<<<16,(bor(temp_txd1<<<8,temp_txd0))) - pow(2,23)
 
+    IO.puts "temp: #{temp_txd0} #{temp_txd1} #{temp_txd2}"
+    IO.puts "dt: #{dt}"
+
     dt
   end
 
