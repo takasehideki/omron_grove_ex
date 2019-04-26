@@ -80,7 +80,6 @@ defmodule GrovePi.Omron2smpb02e do
     {:ok, pid} = ElixirALE.I2C.start_link("i2c-1", @i2c_addr)
 
     writeByteData(0xf5, 0x00)
-    #writeByteData(pid, 0xf5, 0x00)
     Process.sleep(500)
     setAverage(@avg_1, @avg_1)
 
@@ -92,9 +91,8 @@ defmodule GrovePi.Omron2smpb02e do
     def writeByteData(self,address,data):
         bus.write_byte_data(self.I2C_ADDR, address, data)
   """
-  def writeByteData(pid, address, data) do
+  def writeByteData(address,data) do
     Board.i2c_write_device(@i2c_addr, <<address, data>>)
-    #ElixirALE.I2C.write_device(pid, @i2c_addr, <<address, data>>)
   end  
 
   @doc """
