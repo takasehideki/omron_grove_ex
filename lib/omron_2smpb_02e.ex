@@ -125,6 +125,7 @@ defmodule GrovePi.Omron2smpb02e do
         return Dt
   """
   def readRawTemp(pid) do
+    IO.puts pid
     """
     temp_txd2 = readByte(pid, @reg_temp_txd2)
     temp_txd1 = readByte(pid, @reg_temp_txd1)
