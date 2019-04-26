@@ -131,7 +131,7 @@ defmodule GrovePi.Omron2smpb02e do
     temp_txd0 = readByte(pid, @reg_temp_txd0)
     """
     rawData = ElixirALE.I2C.read(pid, 75)
-    <<_::8*72, temp_txd0::integer, temp_txd1::integer, temp_txd0::integer = rawData
+    <<_::8*72, temp_txd0::integer, temp_txd1::integer, temp_txd0::integer>> = rawData
     dt = bor(temp_txd2<<<16,(bor(temp_txd1<<<8,temp_txd0))) - pow(2,23)
 
     Logger.info temp_txd2 <> " " <> temp_txd1 <> "" <> temp_txd0 <> "" <> dt
