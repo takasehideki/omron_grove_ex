@@ -136,8 +136,6 @@ defmodule GrovePi.Omron2smpb02e do
 
     dt = bor(temp_txd2<<<16,(bor(temp_txd1<<<8,temp_txd0))) - pow(2,23)
 
-    Logger.info temp_txd2 <> " " <> temp_txd1 <> "" <> temp_txd0 <> "" <> dt
-
     dt
   end
 
@@ -145,7 +143,7 @@ defmodule GrovePi.Omron2smpb02e do
   TODO
   https://awochna.com/2017/04/02/elixir-math.html
   """
-  def pow(base, 1), do: base
-  def pow(base, exp), do: base * pow(base, exp - 1)
+  defp pow(base, 1), do: base
+  defp pow(base, exp), do: base * pow(base, exp - 1)
 
 end
