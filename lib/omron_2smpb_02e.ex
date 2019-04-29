@@ -111,7 +111,7 @@ defmodule OmronGroveEx.O2smpb02e do
         bus.write_byte_data(self.I2C_ADDR, self.REG_CTRL_MEAS, 0x27)
   """
   def setAverage(avg_tem,avg_pressure) do
-    ElixirALE.I2C.write_device(@i2c_addr, <<@reg_ctrl_meas, 0x27>>)
+    ElixirALE.I2C.write_device(@i2c_addr, @reg_ctrl_meas, 0x27)
   end
 
   @doc """
