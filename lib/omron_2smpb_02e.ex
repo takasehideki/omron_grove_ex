@@ -81,7 +81,6 @@ defmodule OmronGroveEx.O2smpb02e do
     Process.sleep(500)
     setAverage(@avg_1, @avg_1)
 
-    readRawTemp(pid)
     {:ok, pid}
   end
   
