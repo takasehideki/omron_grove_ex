@@ -77,9 +77,9 @@ defmodule OmronGroveEx.O2smpb02e do
   def initialize() do
     {:ok, pid} = ElixirALE.I2C.start_link("i2c-1", @i2c_addr)
 
-    writeByteData(0xf5, 0x00)
+    writeByteData(pid, 0xf5, 0x00)
     Process.sleep(500)
-    setAverage(@avg_1, @avg_1)
+    setAverage(pid, @avg_1, @avg_1)
 
     {:ok, pid}
   end
@@ -89,8 +89,8 @@ defmodule OmronGroveEx.O2smpb02e do
     def writeByteData(self,address,data):
         bus.write_byte_data(self.I2C_ADDR, address, data)
   """
-  def writeByteData(address,data) do
-    ElixirALE.I2C.write_device(@i2c_addr, address, data)
+  def writeByteData(pid, address,data) do
+    ElixirALE.I2C.write_device(pid, @i2c_addr, <<address, data>>)
   end  
 
   @doc """
@@ -109,8 +109,8 @@ defmodule OmronGroveEx.O2smpb02e do
     def setAverage(self,avg_tem,avg_pressure):
         bus.write_byte_data(self.I2C_ADDR, self.REG_CTRL_MEAS, 0x27)
   """
-  def setAverage(avg_tem,avg_pressure) do
-    ElixirALE.I2C.write_device(@i2c_addr, @reg_ctrl_meas, 0x27)
+  def setAverage(pid, avg_tem,avg_pressure) do
+    ElixirALE.I2C.write_device(pid, @i2c_addr, <<@reg_ctrl_meas, 0x27>>)
   end
 
   @doc """
